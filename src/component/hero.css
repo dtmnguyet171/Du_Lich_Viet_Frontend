@@ -1,4 +1,16 @@
-
+:root {
+    --PrimaryColor: hsl(199, 100%, 33%);
+    --SecondaryColor: hsl(187, 85%, 43%);
+    --gradientColor: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+    --whiteColor: hsl(0, 0%, 100%);
+    --blackColor: hsl(201, 33%, 16%);
+    --textColor: hsl(240, 4%, 36%);
+    --whiteColorDeam: hsl(0, 0%, 93%);
+    --greyText: rgb(190, 190, 190);
+    --inputColor: rgb(239, 239, 239);
+    --bodyColor: rgb(240, 240, 246);
+    --cardBG: rgb(225, 225, 235);
+  }
 
 
 
@@ -15,7 +27,7 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    background: rgb(47, 106, 127);
+    background: var(--PrimaryColor);
     top: 0;
     bottom: 0;
     z-index: 1;
@@ -39,7 +51,7 @@ video{
     align-items: stretch;
     justify-content: center;
     margin: auto;
-    color: whitesmoke;
+    color: var(--whiteColor);
     z-index: 100;
 }
 .homeContent.textDiv{
@@ -58,13 +70,13 @@ video{
 .cardDiv{
     position: relative;
     padding: 2rem 1rem;
-    background: whitesmoke;
+    background: var(--whiteColor);
     border-radius: 10px;
     gap: 1rem;
 }
 .cardDiv label{
     display:block;
-    color: black;
+    color: var(--blackColor);
     padding-bottom: 10px;
     font-size: 13px;
     font-weight: 500;
@@ -72,7 +84,7 @@ video{
 .cardDiv .input{
     height: 40px;
     padding: 0 1rem;
-    background: lightgray;
+    background: var(--cardBG);
     border-radius: 3rem;
 }
 .cardDiv .input input{
@@ -92,7 +104,7 @@ video{
 }
 .cardDiv .searchOptions{
     position: absolute;
-    background: darkcyan;
+    background: var(--gradientColor);
     width: max-content;
     bottom: -0.7rem;
     column-gap: .8rem;
@@ -101,9 +113,10 @@ video{
     left: 50%;
     transform: translate(-50%);
     justify-content: center;
+    cursor: pointer;
 }
 .cardDiv .searchOptions:hover{
-    background: gray;
+    background: var(--SecondaryColor);
 }
 
 .homeFooterIcons{
@@ -113,11 +126,11 @@ video{
 .homeFooterIcons .icon{
     font-size: 20px;
     margin: 0 5px;
-    color: white;
+    color: var(--whiteColor);
     font-weight: 600;
 }
 .homeFooterIcons .icon:hover{
-    color: black;
+    color: var(--blackColor);
 }
 
 /* MEDIA */
@@ -137,7 +150,7 @@ video{
                     &::after{
                         position: absolute;
                         content: '';
-                        background-color: blanchedalmond;
+                        background-color: var(--SecondaryColor);
                         height: 5px;
                         width: 145px;
                         right: 0px;
