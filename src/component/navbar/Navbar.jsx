@@ -5,7 +5,7 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 import { TbGridDots } from 'react-icons/tb';
 const Navbar = () => {
     return(
-        <section className="navBarSection">
+        <div className="navBarSection">
             <header className="header flex">
 
                 <div className="logoDiv">
@@ -60,7 +60,7 @@ const Navbar = () => {
                     <TbGridDots className="icon"/>
                 </div>
             </header>
-        </section>
+        </div>
     )
 }
 export default Navbar;
