@@ -6,8 +6,6 @@ import Hero from "../Hero";
 const Layout = () => {
     return (
         <>
-            <Navbar/>
-            <Routers />
         </>
     )
 }
