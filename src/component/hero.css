@@ -135,49 +135,34 @@ video{
 
 /* MEDIA */
 
-@media screen and (min-height: 80px ) {
-    .home{
-        .homeContent{
-            .textDiv{
-                .smallText{
-                    font-size: 16px;
-                }
-                .homeTitle{
-                    position: relative;
-                    font-size: 2.3rem;
-                    width: max-content;
-
-                    &::after{
-                        position: absolute;
-                        content: '';
-                        background-color: var(--SecondaryColor);
-                        height: 5px;
-                        width: 145px;
-                        right: 0px;
-                        bottom: 5px;
-                        z-index: -1;
-                    }
-                }
-            }
-
-            .cardDiv{
-                grid-template-columns: repeat(2,1fr);
-            }
-        }
-
-        /* @media screen and (min-height: 80px) {
-            .home{
-                .homeContent{
-                    .cardDiv{
-                        padding: 2rem 1rem;
-                        grid-template-columns: repeat(3,1fr);
-                    }
-                }
-            }
-        } */
+@media screen and (min-width: 940px) {
+    .home .homeContent .textDiv .smallText {
+        font-size: 16px;
     }
-    
+
+    .homeTitle {
+        position: relative;
+        font-size: 2.3rem;
+        width: max-content;
+    }
+
+
+    .homeTitle::after {
+        position: absolute;
+        content: '';
+        background-color: var(--SecondaryColor);
+        height: 5px;
+        width: 145px;
+        right: 0px;
+        bottom: 5px;
+        z-index: -1;
+    }
+
+    .cardDiv {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
+
 
 
 
