@@ -27,7 +27,7 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    background: var(--PrimaryColor);
+    background: rgba(10,84, 107, 0.307);
     top: 0;
     bottom: 0;
     z-index: 1;
@@ -114,6 +114,7 @@ video{
     transform: translate(-50%);
     justify-content: center;
     cursor: pointer;
+    bottom: -15px;
 }
 .cardDiv .searchOptions:hover{
     background: var(--SecondaryColor);

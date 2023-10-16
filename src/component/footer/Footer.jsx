@@ -43,9 +43,8 @@ const Footer = () => {
                         </div>
 
                         <div data-aos="fade-up"className="footerParagraph">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mattis consectetur lorem, ac tempus nisi porta vel. Suspendisse gravida tincidunt metus at accumsan. Nulla sagittis nulla vel massa iaculis ornare. Suspendisse felis quam, dapibus ut leo ut, ullamcorper convallis ligula. Nam eu dictum ipsum. Aliquam semper leo non enim congue, vitae vehicula nulla condimentum. Vestibulum sed velit sem. Etiam facilisis tempus nibh, at varius urna suscipit ac.
+                        Chúng tôi luôn nỗ lực tìm kiếm, lực chọn các nhà cung cấp chất lượng, uy tín để đảm bảo dịch vụ cuối cùng tới quý khách là tốt nhất.Với quy mô văn phòng cả nước, số lượng đoàn khách đông, đối tác lớn và mỗi đoàn luôn được tối ưu để giảm giá thành với mức chất lượng không đổi.
                         </div>
-
                         <div data-aos="fade-up" className="footerSocials flex">
                             <AiOutlineTwitter className="icon" />
                             <AiFillYoutube className="icon" />

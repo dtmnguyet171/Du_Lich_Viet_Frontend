@@ -50,7 +50,7 @@ const Navbar = () => {
                         </li>
 
                         <li className="navItem">
-                            <a href="" className="navLink">News</a>
+                            <a href="" className="navLink">Blogs</a>
                         </li>
 
                         <li className="navItem">
@@ -58,7 +58,7 @@ const Navbar = () => {
                         </li>
 
                         <button className="btn">
-                            <a href="#">BOOK NOW</a>
+                            <a href="#">SIGN IN</a>
                         </button>
                     </ul>
 

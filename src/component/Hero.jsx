@@ -56,7 +56,7 @@ const Hero = () => {
 
                     <div className="searchOptions flex">
                         <HiFilter className="icon" />
-                        <span>MORE FILTER</span>
+                        <span>FILTER</span>
                     </div>
                 </div>
 

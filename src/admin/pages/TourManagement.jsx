@@ -1,10 +1,12 @@
-import AdminHeader from "../component/AdminHeader";
+import Body from "../component/body/Body";
+import Sidebar from "../component/sidebar/Sidebar";
 
 const TourManagement = () => {
     return(
-        <>
-            <AdminHeader />
-        </>
+        <div>
+            <Sidebar />
+            <Body/>
+        </div>
     )
 }
 export default TourManagement;
