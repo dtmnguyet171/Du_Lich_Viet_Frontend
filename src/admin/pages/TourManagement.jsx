@@ -1,11 +1,11 @@
-import Body from "../component/body/Body";
 import Sidebar from "../component/sidebar/Sidebar";
+import Tours from "../component/tours/Tours";
 
 const TourManagement = () => {
     return(
         <div>
             <Sidebar />
-            <Body/>
+            <Tours/>
         </div>
     )
 }

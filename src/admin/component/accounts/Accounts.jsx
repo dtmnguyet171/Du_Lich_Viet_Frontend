@@ -1,4 +1,4 @@
-import "./body.css";
+import "./accounts.css";
 import React from 'react';
 import { Input, Table } from 'antd';
 const { Search } = Input;
@@ -99,26 +99,26 @@ const onChange = (pagination, filters, sorter, extra) => {
 };
 
 const onSearch = (value, _e, info) => console.log(info?.source, value);
-const Body = () => {
+const Accounts = () => {
     return (
         <section className="main container section">
             <div className="secTitle">
                 <h3 data-aos="fade-right" className="title">
-                    Manage Tour
+                    Manage Accounts
                 </h3>
             </div>
-            <div className="destinationInput">
+            <div data-aos="fade-right" className="destinationInput">
                 <label htmlFor="city">
-                    Search TourName
+                    Search username
                 </label>
                 <div className="inputSearch flex">
                     <Search placeholder="input search text" onSearch={onSearch} enterButton />
                 </div>
             </div>
-            <div className="table">
+            <div data-aos="fade-up" className="table">
                 <Table columns={columns} dataSource={data} onChange={onChange} />
             </div>
         </section>
     )
 }
-export default Body;
+export default Accounts;

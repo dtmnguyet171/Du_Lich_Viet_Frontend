@@ -14,15 +14,31 @@
 
 .main {
     padding-top: 100px;
-    padding-left: 10%;
+    padding-left: calc(5% + 50px);
     padding-right: 5%;
 }
 
 .inputSearch {
     width: 30%;
 }
+.table {
+    padding-top: 50px;
+    display: grid;
+}
 
 :where(.css-dev-only-do-not-override-1pskbce).ant-table-wrapper {
     clear: inherit;
     padding-top: 50px;
+}
+
+@media screen and (min-width: 500px) {
+    .main {
+        padding-left: calc(5% + 70px);
+    }
+}
+
+@media screen and (min-width: 660px) {
+    .main {
+        padding-left: calc(5% + 80px);
+    }
 }

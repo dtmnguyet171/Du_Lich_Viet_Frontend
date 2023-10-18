@@ -14,8 +14,8 @@
 
 .sideBar {
     padding-top: 100px;
-    width: 6%;
-    height: 1000px;
+    width: 50px;
+    height: 100vh;
     float: left;
     align-items: flex-start;
     background-color: var(--whiteColorDeam);
@@ -70,7 +70,7 @@
 }
 
 .sideBar .menu .navItem .navList .icon {
-    font-size: 25px;
+    font-size: 15px;
     color: var(--blackColor);
 }
 
@@ -80,4 +80,32 @@
 
 .sideBar .menu .navItem .navList:hover .icon {
     color: var(--PrimaryColor);
+}
+
+@media screen and (min-width: 500px) {
+    .sideBar {
+        width: 70px;
+    }
+
+    .sideBar .menu .navItem .navList .icon {
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 660px) {
+    .sideBar {
+        width: 80px;
+    }
+    .sideBar .menu .navItem .navList .icon {
+        font-size: 25px;
+    }
+}
+
+@media screen and (min-width: 840px) {
+    .sideBar {
+        width: 100px;
+    }
+    .sideBar .menu .navItem .navList .icon {
+        font-size: 30px;
+    }
 }

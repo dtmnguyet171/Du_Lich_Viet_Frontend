@@ -6,6 +6,8 @@ import Contact from "../pages/Contact";
 import Service from "../pages/Service";
 import TourManagement from "../admin/pages/TourManagement";
 import History from "../pages/History";
+import AccountManagement from "../admin/pages/AccountManagement";
+import BookingManagement from "../admin/pages/BookingManagement";
 
 const Routers = () => {
     return(
@@ -17,6 +19,9 @@ const Routers = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/service" element={<Service />} />
             <Route path="/admin/tour" element={<TourManagement />} />
+            <Route path="/admin/account" element={<AccountManagement />} />
+            <Route path="/admin/booking" element={<BookingManagement />} />
+
         </Routes>
     )
 }
