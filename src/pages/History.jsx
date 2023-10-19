@@ -1,8 +1,9 @@
-import BookingHistory from "../component/bookingHistory/BookingHistory";
+import Profile from "../component/profile/Profile";
+
 const History = () => {
     return(
         <>
-        <BookingHistory />
+        <Profile/>
         </>
     )
 }

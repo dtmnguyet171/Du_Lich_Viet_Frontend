@@ -16,7 +16,16 @@ function App() {
 
         // Alias Token
         colorBgContainer: '#f0f0f6',
-        borderRadius: '16px'
+        borderRadius: '16px',
+
+      },
+      components: {
+       
+        Tooltip: {
+          borderRadius: '16',
+          borderRadiusOuter: '6',
+          borderRadiusXS: '2'
+        }
       },
     }}
   >
