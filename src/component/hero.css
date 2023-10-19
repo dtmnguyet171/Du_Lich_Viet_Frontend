@@ -76,11 +76,19 @@ video{
 }
 .cardDiv label{
     display:block;
-    color: var(--blackColor);
+    color: var(--textColor);
     padding-bottom: 10px;
     font-size: 13px;
     font-weight: 500;
 }
+.priceInput .label_total {
+    justify-content: space-between;
+}
+
+.priceInput .label_total .total {
+    color: var(--blackColor);
+}
+
 .cardDiv .input{
     height: 40px;
     padding: 0 1rem;
@@ -100,8 +108,11 @@ video{
 }
 .cardDiv .input .icon{
     font-size: 18px;
+    color: var(--PrimaryColor) !important;
     margin-left: 10px;
 }
+
+
 .cardDiv .searchOptions{
     position: absolute;
     background: var(--gradientColor);
@@ -161,6 +172,12 @@ video{
 
     .cardDiv {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 1240px) {
+    .cardDiv {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 

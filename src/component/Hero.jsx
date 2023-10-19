@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState } from "react";
 import video from '../Video/video.mp4'
 import './hero.css'
 import {GrLocation} from 'react-icons/gr'
@@ -16,6 +16,12 @@ const Hero = () => {
     useEffect(() => {
         Aos.init({duration: 2000})
     }, [])
+
+    const [sliderValue, setSliderValue] = useState(0); 
+    const handleSliderChange = (event) => {
+        setSliderValue(event.target.value);
+      };
+    const formattedPrice = new Intl.NumberFormat('vi-VN').format(sliderValue);
 
 
     return(
@@ -37,20 +43,31 @@ const Hero = () => {
                 <div data-aos='fade-up' className="cardDiv grid">
                     <div className="destinationInput">
                         <label htmlFor="city">
-                            Search your destination 
+                            Search your arrival
                         </label>
                         <div className="input flex">
-                            <input type="text" placeholder="Enter name here..." />
+                            <input type="text" placeholder="Enter arrival here..." />
                             <GrLocation className="icon" />
                         </div>
                     </div>
 
-                    <div className="dateInput">
-                        <label htmlFor="date">
-                            Select your date:
+                    <div className="destinationInput">
+                        <label htmlFor="city">
+                            Search your destination
                         </label>
                         <div className="input flex">
-                            <input type="date" placeholder="Enter your date..." />
+                            <input type="text" placeholder="Enter destination here..." />
+                            <GrLocation className="icon" />
+                        </div>
+                    </div>
+
+                    <div className="priceInput">
+                        <div className="label_total flex">
+                            <label htmlFor="" className="price">Max Price</label>
+                            <h3 className="total">{formattedPrice}</h3>
+                        </div>
+                        <div className="input flex">
+                            <input type="range" max="20000000" min="0" step="1000000" value={sliderValue} onChange={handleSliderChange} />
                         </div>
                     </div>
 

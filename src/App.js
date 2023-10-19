@@ -1,8 +1,11 @@
 import { ConfigProvider } from 'antd';
+import { useEffect } from 'react';
+
 import './App.css';
 import Layout from './component/layout/Layout';
 
 function App() {
+
   return (
     <ConfigProvider
     theme={{
