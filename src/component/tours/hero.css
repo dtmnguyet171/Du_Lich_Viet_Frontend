@@ -110,6 +110,11 @@ video{
     margin-left: 10px;
 }
 
+button {
+    border: none;
+    color: var(--whiteColor);
+}
+
 
 .cardDiv .searchOptions{
     position: absolute;
