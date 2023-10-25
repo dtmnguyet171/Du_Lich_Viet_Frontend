@@ -18,8 +18,23 @@
     padding-right: 5%;
 }
 
+.destination-search {
+    display: flex;
+}
+
+.destinationInput {
+    width: 100%;
+}
+
 .inputSearch {
-    width: 30%;
+    width: 70%;
+}
+
+.add-tour {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: right;
 }
 .table {
     padding-top: 50px;

@@ -8,12 +8,14 @@ import TourManagement from "../admin/pages/TourManagement";
 import History from "../pages/History";
 import AccountManagement from "../admin/pages/AccountManagement";
 import BookingManagement from "../admin/pages/BookingManagement";
+import TourDetails from "../pages/TourDetails";
 
 const Routers = () => {
     return(
         <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<Home/>} />
+            <Route path="/tour/:id" element={<TourDetails />} />
             <Route path="/history" element={<History/>} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />

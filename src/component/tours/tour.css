@@ -128,7 +128,8 @@
 
 .main .secContent .singleDestination .cardInfo .fees .price {
     font-size: 2rem;
-    color: var(--blackColor);
+    color: var(--SecondaryColor);
+    padding: 5px;
 }
 
 .main .secContent .singleDestination .cardInfo .desc {
@@ -148,6 +149,23 @@
 .main .secContent .singleDestination .cardInfo .btn .icon {
     align-self: center;
     font-size: 18px;
+}
+
+.noti {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.notiIcon {
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+    color: var(--SecondaryColor);
+    font-size: 75px;
+    vertical-align: middle;
+    margin-bottom: 20px;
 }
 
 /* MEDIA QUERIES */
