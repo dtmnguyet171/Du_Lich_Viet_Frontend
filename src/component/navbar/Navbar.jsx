@@ -3,6 +3,7 @@ import "./navbar.css";
 import { MdOutlineTravelExplore } from 'react-icons/md';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { TbGridDots } from 'react-icons/tb';
+import { Link } from "react-router-dom";
 const Navbar = () => {
     const [active, setActive] = useState('navBar');
     // Function to toggle navBar
@@ -58,7 +59,7 @@ const Navbar = () => {
                         </li>
 
                         <button className="btn">
-                            <a href="#">SIGN IN</a>
+                            <Link to="/login">SIGN IN</Link>
                         </button>
                     </ul>
 

@@ -9,6 +9,8 @@ import History from "../pages/History";
 import AccountManagement from "../admin/pages/AccountManagement";
 import BookingManagement from "../admin/pages/BookingManagement";
 import TourDetails from "../pages/TourDetails";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 const Routers = () => {
     return(
@@ -17,6 +19,8 @@ const Routers = () => {
             <Route path="/home" element={<Home/>} />
             <Route path="/tour/:id" element={<TourDetails />} />
             <Route path="/history" element={<History/>} />
+            <Route path="/login" element={<Login/>} />
+            <Route path="/register" element={<Register/>} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/service" element={<Service />} />
