@@ -25,6 +25,12 @@ function App() {
           borderRadius: '16',
           borderRadiusOuter: '6',
           borderRadiusXS: '2'
+        },
+
+        Popover: {
+          borderRadius: '16',
+          borderRadiusOuter: '6',
+          borderRadiusXS: '2'
         }
       },
     }}

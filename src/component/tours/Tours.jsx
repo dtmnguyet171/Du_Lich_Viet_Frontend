@@ -21,11 +21,14 @@ import { BsListTask } from "react-icons/bs";
 import { TbApps } from "react-icons/tb";
 import { ImFileEmpty } from "react-icons/im";
 import { Link } from "react-router-dom";
+import { Pagination, Empty } from "antd";
 
 const Data = tours;
 
 const Tours = () => {
     const [tours, setTours] = useState([]);
+    const [totalTours, setTotalTours] = useState(0);
+    const [current, setCurrent] = useState(1);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [sliderValue, setSliderValue] = useState(20000000);
@@ -38,7 +41,7 @@ const Tours = () => {
     useEffect(() => {
         Aos.init({ duration: 2000 });
         fetchTours();
-    }, []);
+    }, [current]);
 
     const fetchTours = async () => {
         setLoading(true);
@@ -48,8 +51,8 @@ const Tours = () => {
             depart: depart,
             maxPrice: sliderValue,
             minPrice: 1,
-            page: 1,
-            page_size: 9,
+            page: current,
+            page_size: 10,
             sortField: "content",
             sortType: "asc",
             status: ["AVAILABLE"],
@@ -67,7 +70,7 @@ const Tours = () => {
                 }
             );
 
-            console.log(response);
+            setTotalTours(response.data.totalElements);
             setTours(response.data.content);
             setLoading(false);
         } catch (error) {
@@ -75,20 +78,6 @@ const Tours = () => {
             setLoading(false);
         }
     };
-    // Kiểm tra nếu dữ liệu trả về không phải là một mảng, chuyển đổi nó thành mảng
-
-    // if (loading) {
-    //     return <h4>Loading...........</h4>;
-    // }
-
-    // if (error) {
-    //     return <h4>{error}</h4>;
-    // }
-    // // Lọc những tour có thuộc tính featured bằng true
-
-    // if (!tours.length) {
-    //     return <h4>Tour Not Found.</h4>;
-    // }
 
     const handleArrivalChange = (event) => {
         setArrival(event.target.value);
@@ -105,10 +94,10 @@ const Tours = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchTours();
-        // Implement your filtering logic using the state values
-        // Update the 'tours' state with the filtered results
-        // Example: const filteredTours = tours.filter(...)
-        // setTours(filteredTours);
+    };
+
+    const onChangePage = (page) => {
+        setCurrent(page);
     };
 
     return (
@@ -251,16 +240,10 @@ const Tours = () => {
                                 }
                             )}
                         </div>
+                        <Pagination current={current} onChange={onChangePage} total={totalTours}/>
                     </>
                 ) : (
-                    <div data-aos="fade-up" className="container">
-                        <div className="noti">
-                            TOUR NOT FOUND
-                        </div>
-                        <div className="notiIcon">
-                            <ImFileEmpty />
-                        </div>
-                    </div>
+                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
                 )}
             </section>
         </>
