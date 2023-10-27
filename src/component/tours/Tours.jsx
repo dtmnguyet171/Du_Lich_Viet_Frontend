@@ -60,7 +60,7 @@ const Tours = () => {
 
         try {
             const response = await axios.post(
-                `${BASE_URL}/tour/view_list_tour`,
+                `${BASE_URL}/api/v1/tour/view_list_tour`,
                 requestData,
                 {
                     headers: {

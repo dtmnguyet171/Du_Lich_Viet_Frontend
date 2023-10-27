@@ -74,7 +74,7 @@ const Tours = () => {
 
         try {
             const response = await axios.post(
-                `${BASE_URL}/tour/view_list_tour`,
+                `${BASE_URL}/api/v1/tour/view_list_tour`,
                 requestData,
                 {
                     headers: {
@@ -96,7 +96,7 @@ const Tours = () => {
     const handleAddTour = async () => {
         try {
             const response = await axios.post(
-                `${BASE_URL}/tour/create_tour`,
+                `${BASE_URL}/api/v1/tour/create_tour`,
                 formDataAdd,
                 {
                     headers: {
@@ -132,7 +132,7 @@ const Tours = () => {
         setOpenDelete(true);
         try {
             await axios.delete(
-                `${BASE_URL}/tour/delete_tour/${id}`
+                `${BASE_URL}/api/v1/tour/delete_tour/${id}`
             );
             setOpenDelete(false);
             fetchTours();
@@ -147,7 +147,7 @@ const Tours = () => {
     const handleEditTour = async () => {
         try {
             const response = await axios.put(
-                `${BASE_URL}/tour/update_tour`,
+                `${BASE_URL}/api/v1/tour/update_tour`,
                 formDataEdit,
                 {
                     headers: {
