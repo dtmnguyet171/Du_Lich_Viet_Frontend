@@ -1,5 +1,5 @@
 import "./tours.css";
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from "axios";
 import { Checkbox, Input, Pagination, Table, Tooltip, Modal, Select, Form, InputNumber, Upload, Button, message, Popover, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
@@ -7,10 +7,11 @@ import { BASE_URL } from "./../../../utils/config";
 import Compressor from "compressorjs";
 import useFetch from "../../../hooks/useFetch";
 import { AiFillEdit, AiFillDelete, AiFillPlusCircle } from "react-icons/ai";
-// import img from "./../../../assets/images";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Tours = () => {
     const { Search } = Input;
+    const { token } = useContext(AuthContext);
     const [tours, setTours] = useState([]);
     const [totalTours, setTotalTours] = useState(0);
     const [current, setCurrent] = useState(1);
@@ -102,6 +103,7 @@ const Tours = () => {
                     headers: {
                         accept: "*/*",
                         "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
                     },
                 }
             );
@@ -132,7 +134,15 @@ const Tours = () => {
         setOpenDelete(true);
         try {
             await axios.delete(
-                `${BASE_URL}/api/v1/tour/delete_tour/${id}`
+                `${BASE_URL}/api/v1/tour/delete_tour/${id}`,
+                {
+                    headers: {
+                        accept: "*/*",
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+
             );
             setOpenDelete(false);
             fetchTours();
@@ -153,6 +163,7 @@ const Tours = () => {
                     headers: {
                         accept: "*/*",
                         "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
                     },
                 }
             );

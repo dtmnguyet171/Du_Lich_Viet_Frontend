@@ -23,7 +23,6 @@ import { ImFileEmpty } from "react-icons/im";
 import { Link } from "react-router-dom";
 import { Pagination, Empty } from "antd";
 
-const Data = tours;
 
 const Tours = () => {
     const [tours, setTours] = useState([]);

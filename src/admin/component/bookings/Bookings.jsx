@@ -107,6 +107,7 @@ const Bookings = () => {
                     Manage Bookings
                 </h3>
             </div>
+            <div className="destination-search">
             <div data-aos="fade-right" className="destinationInput">
                 <label data-aos="fade-right" htmlFor="city">
                     Search username
@@ -114,6 +115,7 @@ const Bookings = () => {
                 <div className="inputSearch flex">
                     <Search placeholder="input search text" onSearch={onSearch} enterButton />
                 </div>
+            </div>
             </div>
             <div data-aos="fade-up" className="table">
                 <Table columns={columns} dataSource={data} onChange={onChange} />
