@@ -477,8 +477,29 @@ const Tours = () => {
                             maxCount={1}
                             showUploadList={false}
                             customRequest={(info) => {
-                                setFileList(info.file);
-                                setFormDataAdd((prevData) => ({ ...prevData, image:  URL.createObjectURL(info.file) }));
+                                const fileImg = info.file;
+                                    new Compressor(fileImg, {
+                                        quality: 0.6, // Chất lượng sau khi nén (tùy chỉnh)
+                                        success(result) {
+                                          const reader = new FileReader();
+                              
+                                
+                                          reader.onload = (event) => {
+                                            const imageDataUrl = event.target.result;
+                                            console.log(imageDataUrl);
+                                
+                                            setFormDataAdd((prevData) => ({
+                                              ...prevData,
+                                              image: imageDataUrl,
+                                            }));
+                                          };
+                                
+                                          reader.readAsDataURL(result);
+                                        },
+                                        error(err) {
+                                          console.error(err.message);
+                                        },
+                                      });
                             }}
                         >
                             <Button>Upload</Button>
@@ -575,8 +596,31 @@ const Tours = () => {
                                 maxCount={1}
                                 showUploadList={false}
                                 customRequest={(info) => {
-                                    setFileList(info.file);
-                                    setFormDataEdit((prevData) => ({ ...prevData, image: URL.createObjectURL(info.file) }))
+                                    const fileImg = info.file;
+                                    new Compressor(fileImg, {
+                                        quality: 0.6, // Chất lượng sau khi nén (tùy chỉnh)
+                                        success(result) {
+                                          const reader = new FileReader();
+                              
+                                
+                                          reader.onload = (event) => {
+                                            const imageDataUrl = event.target.result;
+                                            console.log(imageDataUrl);
+                                
+                                            setFormDataEdit((prevData) => ({
+                                              ...prevData,
+                                              image: imageDataUrl,
+                                            }));
+                                          };
+                                
+                                          reader.readAsDataURL(result);
+                                        },
+                                        error(err) {
+                                          console.error(err.message);
+                                        },
+                                      });
+                                    // setFileList(info.file);
+                                    // setFormDataEdit((prevData) => ({ ...prevData, image: URL.createObjectURL(info.file) }))
                                 }}
                             >
                                 <Button>Upload</Button>
