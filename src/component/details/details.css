@@ -65,18 +65,6 @@
   margin: 10px;
 }
 
-.details .title::after {
-  position: absolute;
-  content: '';
-  background: var(--SecondaryColor);
-  height: 5px;
-  width: 195px;
-  right: 185px;
-  bottom: 6px;
-  z-index: -1;
-}
-
-
 .card-price {
   box-shadow: 0 2px 4px rgba(2, 15, 29, 0.242);
   border-radius: 5px;

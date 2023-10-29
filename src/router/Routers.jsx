@@ -11,6 +11,7 @@ import BookingManagement from "../admin/pages/BookingManagement";
 import TourDetails from "../pages/TourDetails";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import BookingForm from "../component/booking-form/BookingForm";
 
 const Routers = () => {
     return(
@@ -18,6 +19,7 @@ const Routers = () => {
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<Home/>} />
             <Route path="/tour/:id" element={<TourDetails />} />
+            <Route path="/tour/booking-form/:id" element={<BookingForm/>}/>
             <Route path="/history" element={<History/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/register" element={<Register/>} />

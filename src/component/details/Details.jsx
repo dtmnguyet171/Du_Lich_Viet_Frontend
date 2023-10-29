@@ -1,7 +1,7 @@
 import "./details.css";
 import React, { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { BASE_URL } from "../../utils/config";
 import {TbCategory, TbLocation} from "react-icons/tb";
 import {GrLocation} from "react-icons/gr";
@@ -21,7 +21,7 @@ const Details = () => {
         data: tour,
         loading,
         error,
-      } = useFetch(`${BASE_URL}/tour/viewdetail/${id}`);
+      } = useFetch(`${BASE_URL}/api/v1/tour/viewdetail/${id}`);
     const {arrival, content, depart, duration, image, maxGuestSize, price, title, transport, type} = tour;
     const formattedPrice = new Intl.NumberFormat("vi-VN").format(price);
     return(
@@ -82,9 +82,11 @@ const Details = () => {
             <div className="card-price">
                 <h3 className="price-title">Giá đặt tour/khách:</h3>
                 <div className="price-tag">{formattedPrice}</div>
+                <Link to={`/tour/booking-form/${id}`}>
                 <button className="booking-btn btn">
                     <a href="#"><BsFillCartCheckFill className="icon"/><span>ĐẶT TOUR</span></a>
                 </button>
+                </Link>
             </div>
         </div>
         
