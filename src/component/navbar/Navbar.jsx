@@ -21,7 +21,7 @@ const Navbar = () => {
         {
           label: (
             <a>
-              Update information
+              Update Profile
             </a>
           ),
           key: '0',
