@@ -245,6 +245,10 @@ const Tours = () => {
             title: 'Price',
             dataIndex: 'price',
             sorter: (a, b) => a.price - b.price,
+            render: (price) => {
+                const formattedPrice = new Intl.NumberFormat("vi-VN").format(price);
+                return formattedPrice;
+            },
             width: 80
         },
         {

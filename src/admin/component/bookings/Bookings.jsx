@@ -122,7 +122,6 @@ const Bookings = () => {
             });
             setBookings(response.data);
             setLoading(false);
-            console.log(response.data);
         } catch (error) {
             setError(error.message);
             setLoading(false);

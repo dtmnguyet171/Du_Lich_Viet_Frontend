@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from "../../../context/AuthContext";
 import axios from "axios";
 import { BASE_URL } from "../../../utils/config";
-import { Input, Table, Pagination, Checkbox, Modal, Form, Select, Popover } from 'antd';
+import { Input, Table, Pagination, Checkbox, Modal, Form, Select, Popover, Tag } from 'antd';
 import { AiFillEdit, AiFillDelete, AiFillPlusCircle } from "react-icons/ai";
 
 
@@ -65,11 +65,22 @@ const Accounts = () => {
         {
             title: 'Status',
             dataIndex: 'status',
-            render: (status) => (
-                <>
-                    {(status === "ACTIVE") ? (<Checkbox defaultChecked={true} disabled />) : (<Checkbox defaultChecked={false} disabled />)}
-                </>
-            ),
+            render: (status) => {
+                let tagColor;
+                let statusName;
+            
+                switch (status) {
+                    case "ACTIVE":
+                        tagColor = "green";
+                        statusName = "Active";
+                        break;
+                    case "INACTIVE":
+                        tagColor = "red";
+                        statusName = "Inactive";
+                        break;
+                }
+                return <Tag color={tagColor}>{statusName}</Tag>;
+            }
         },
         {
             title: 'Action',

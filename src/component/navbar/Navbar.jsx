@@ -20,7 +20,7 @@ const Navbar = () => {
     const items = [
         {
           label: (
-            <a>
+            <a href="/profile">
               Update Profile
             </a>
           ),

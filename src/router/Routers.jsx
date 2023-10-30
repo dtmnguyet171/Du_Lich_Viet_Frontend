@@ -12,6 +12,7 @@ import TourDetails from "../pages/TourDetails";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import BookingForm from "../component/booking-form/BookingForm";
+import ProfileUpdate from "../pages/ProfileUpdate";
 
 const Routers = () => {
     return(
@@ -21,6 +22,7 @@ const Routers = () => {
             <Route path="/tour/:id" element={<TourDetails />} />
             <Route path="/tour/booking-form/:id" element={<BookingForm/>}/>
             <Route path="/history" element={<History/>} />
+            <Route path="/profile" element={<ProfileUpdate/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/register" element={<Register/>} />
             <Route path="/about" element={<About />} />
