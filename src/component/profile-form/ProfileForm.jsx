@@ -8,9 +8,10 @@ import { BASE_URL } from '../../utils/config';
 
 const ProfileForm = () => {
 
-    const { token, id } = useContext(AuthContext);
+    const { token, id, username } = useContext(AuthContext);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [account, setAccount] = useState(null);
     const [formDataEdit, setFormDataEdit] = useState({
         username: "",
         fullName: "",
@@ -24,6 +25,35 @@ const ProfileForm = () => {
         const { name, value } = e.target;
         setFormDataEdit((prevData) => ({ ...prevData, [name]: value }));
     };
+
+    useEffect(() => {
+        fetchAccount();
+        // setFormDataEdit(account);
+      }, []);
+    
+
+    const fetchAccount = async () => {
+        setLoading(true);
+    
+        try {
+            const response = await axios.get(
+                `${BASE_URL}/api/accounts/${id}`,
+                {
+                    headers: {
+                        accept: "*/*",
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setFormDataEdit(response.data);
+            setLoading(false);
+        } catch (error) {
+            setError(error.message);
+            setLoading(false);
+        }
+    };
+    
 
 const handleEditAccount = async () => {
         try {
@@ -59,7 +89,7 @@ const handleEditAccount = async () => {
                         <Form.Item
                             label="Username" onChange={handleChangeEdit}
                         >
-                            <Input name="username" value={formDataEdit.username} placeholder="Input username..." />
+                            <Input name="username" value={username} disabled placeholder="Input username..." />
                         </Form.Item>
                         <Form.Item
                             label="Full Name" onChange={handleChangeEdit}

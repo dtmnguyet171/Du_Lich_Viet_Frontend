@@ -230,11 +230,22 @@ const Tours = () => {
         {
             title: 'Status',
             dataIndex: 'status',
-            render: (status) => (
-                <>
-                    {(status === "AVAILABLE") ? (<Checkbox defaultChecked={true} disabled />) : (<Checkbox defaultChecked={false} disabled/>)}
-                </>
-            ),
+            render: (status) => {
+                let tagColor;
+                let statusName;
+            
+                switch (status) {
+                    case "AVAILABLE":
+                        tagColor = "green";
+                        statusName = "Available";
+                        break;
+                    case "UNAVAILABLE":
+                        tagColor = "red";
+                        statusName = "Unavailable";
+                        break;
+                }
+                return <Tag color={tagColor}>{statusName}</Tag>;
+            },
             width: 80
         },
         {

@@ -1,6 +1,6 @@
 import "./historyBooking.css";
 import React, { useContext, useEffect, useState } from 'react';
-import { Input, Table, Checkbox, Modal, Form, Select, Popover } from 'antd';
+import { Tag, Table, Popover } from 'antd';
 import { AuthContext } from "../../context/AuthContext";
 import { GiCancel } from "react-icons/gi";
 import useFetch from "../../hooks/useFetch";
@@ -83,11 +83,22 @@ const HistoryBooking = () => {
         {
             title: 'Status',
             dataIndex: 'status',
-            render: (status) => (
-                <>
-                    {(status === "CONFIRM") ? (<Checkbox defaultChecked={true} disabled />) : (<Checkbox defaultChecked={false} disabled />)}
-                </>
-            ),
+            render: (status) => {
+                let tagColor;
+                let statusName;
+            
+                switch (status) {
+                    case "CONFIRM":
+                        tagColor = "green";
+                        statusName = "Confirmed";
+                        break;
+                    case "CANCEL":
+                        tagColor = "red";
+                        statusName = "Canceled";
+                        break;
+                }
+                return <Tag color={tagColor}>{statusName}</Tag>;
+            },
         },
         {
             title: 'Action',
@@ -96,7 +107,7 @@ const HistoryBooking = () => {
             render: (record) => {
                 return (
                     <div>
-                        {(record?.status == "CONFIRM") ? (
+                        {(selectedRecord?.id == record?.id && record.status == "CONFIRM") ? (
                         <a>
                             <Popover
                                 content={<div><p>Do you want to cancel? </p><a onClick={() => handleEditBooking()}>OK</a></div>}

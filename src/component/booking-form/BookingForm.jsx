@@ -82,7 +82,7 @@ const BookingForm = () => {
           <hr />
           <Form name="trigger" layout="vertical">
             <Form.Item label="Số lượng khách" >
-              <InputNumber min={1}  onChange={(val) => handleChangeGuestSize(val)}/>
+              <InputNumber min={1} max={tour.maxGuestSize} onChange={(val) => handleChangeGuestSize(val)}/>
             </Form.Item>
             <Form.Item label="Note">
               <TextArea rows={4} onChange={(val) => handleChangeNote(val)}/>

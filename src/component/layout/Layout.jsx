@@ -18,7 +18,7 @@ const Layout = () => {
         <>
             <Navbar />
             <Routers />
-            {role === "USER" || role === "ADMIN" ? <Footer /> : <></>}
+            <Footer />
         </>
     )
 }

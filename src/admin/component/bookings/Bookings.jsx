@@ -1,6 +1,6 @@
 import "./bookings.css";
 import React, { useContext, useEffect, useState } from 'react';
-import { Input, Table, Checkbox, Modal, Form, Select } from 'antd';
+import { Input, Table, Tag, Modal, Form, Select, Pagination } from 'antd';
 import { AuthContext } from "../../../context/AuthContext";
 import axios from "axios";
 import { BASE_URL } from "../../../utils/config";
@@ -12,13 +12,15 @@ const onChange = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
 };
 
-const onSearch = (value, _e, info) => console.log(info?.source, value);
+
 const Bookings = () => {
     const { token } = useContext(AuthContext);
     const [bookings, setBookings] = useState([]);
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [current, setCurrent] = useState(1);
+    const [searchUsername, setSearchUsername] = useState(null);
     const [selectedRecord, setSelectedRecord] = useState({
         account: {id: 0},
         id: 0,
@@ -29,6 +31,7 @@ const Bookings = () => {
         tour: {id:0}
 
     });
+    const [totalBookings, setTotalBookings] = useState(0);
     const [formDataEdit, setFormDataEdit] = useState({
     
             accountId: 0,
@@ -39,7 +42,9 @@ const Bookings = () => {
             status: "",
             tourId: 0
         
-    })
+    });
+
+    const onSearch = (value) => setSearchUsername(value);
 
     const columns = [
         {
@@ -70,11 +75,22 @@ const Bookings = () => {
         {
             title: 'Status',
             dataIndex: 'status',
-            render: (status) => (
-                <>
-                    {(status === "CONFIRM") ? (<Checkbox defaultChecked={true} disabled />) : (<Checkbox defaultChecked={false} disabled />)}
-                </>
-            ),
+            render: (status) => {
+                let tagColor;
+                let statusName;
+            
+                switch (status) {
+                    case "CONFIRM":
+                        tagColor = "green";
+                        statusName = "Confirmed";
+                        break;
+                    case "CANCEL":
+                        tagColor = "red";
+                        statusName = "Canceled";
+                        break;
+                }
+                return <Tag color={tagColor}>{statusName}</Tag>;
+            },
         },
         {
             title: 'Action',
@@ -84,18 +100,6 @@ const Bookings = () => {
                 return (
                     <div>
                         <a onClick={() => toggleEditModal()}><AiFillEdit /></a>
-
-                        {/* {(selectedRecord?.id == record?.id) ? (
-                            <Popover
-                                content={<div><p>Do you want to delete? </p><a onClick={() => handleDelete(record.id)}>Delete</a></div>}
-                                title="Confirm"
-                                trigger="click"
-                                open={openDelete}
-                                onOpenChange={handleOpenChange}
-                            >
-                                <a><AiFillDelete /></a>
-                            </Popover>
-                        ) : (<><a><AiFillDelete /></a></>)} */}
 
                     </div>
                 );
@@ -115,17 +119,30 @@ const Bookings = () => {
             tourId: selectedRecord.tour.id
         });
         // console.log(selectedRecord);
-    }, [selectedRecord]);
+    }, [selectedRecord, searchUsername, current]);
+
+    const onChangePage = (page) => {
+        setCurrent(page);
+    };
 
     const fetchBookings = async () => {
         setLoading(true);
+        const requestData = {
+            username: searchUsername
+        }
+
         try {
-            const response = await axios.get(`${BASE_URL}/bookings/get-all-booking`, {
+            const response = await axios.post(`${BASE_URL}/bookings/filter?page=${current}&size=10&sort=id%2Casc`,
+            requestData,
+            {
                 headers: {
+                    accept: "*/*",
                     Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
                 },
             });
-            setBookings(response.data);
+            setBookings(response.data.content);
+            setTotalBookings(response.data.totalElements);
             setLoading(false);
         } catch (error) {
             setError(error.message);
@@ -183,13 +200,15 @@ const Bookings = () => {
             </div>
             </div>
             <div data-aos="fade-up" className="table">
-                <Table columns={columns} dataSource={bookings} rowKey={(record) => record.id}
+                <Table columns={columns} dataSource={bookings} pagination={false} rowKey={(record) => record.id}
                     onRow={(record) => ({
                         onClick: () => { setSelectedRecord(record) }
                     })}
                     >
                 </Table>
             </div>
+
+            <Pagination current={current} total={totalBookings} onChange={onChangePage} />
 
             <Modal
                 title="UPDATE BOOKING"
