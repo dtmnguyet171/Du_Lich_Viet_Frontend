@@ -6,7 +6,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { BASE_URL } from "./../../../utils/config";
 import Compressor from "compressorjs";
 import useFetch from "../../../hooks/useFetch";
-import { AiFillEdit, AiFillDelete, AiFillPlusCircle } from "react-icons/ai";
+import { AiFillEdit, AiFillPlusCircle } from "react-icons/ai";
 import { AuthContext } from "../../../context/AuthContext";
 
 const Tours = () => {
@@ -22,7 +22,6 @@ const Tours = () => {
     const [selectedRecord, setSelectedRecord] = useState(null);
     const [addModalOpen, setAddModalOpen] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false);
-    const [openDelete, setOpenDelete] = useState(false);
     const { TextArea } = Input;
     const [formDataAdd, setFormDataAdd] = useState({
         arrival: "",
@@ -89,6 +88,7 @@ const Tours = () => {
             setTours(response.data.content);
             setLoading(false);
         } catch (error) {
+            alert("Không thể xóa tour");
             setError(error.message);
             setLoading(false);
         }
@@ -129,30 +129,6 @@ const Tours = () => {
         }
     }
 
-
-    const handleDelete = async (id) => {
-        setOpenDelete(true);
-        try {
-            await axios.delete(
-                `${BASE_URL}/api/v1/tour/delete_tour/${id}`,
-                {
-                    headers: {
-                        accept: "*/*",
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-
-            );
-            setOpenDelete(false);
-            fetchTours();
-        } catch (error) {
-            setError(error.message);
-        }
-    };
-    const handleOpenChange = (newOpen) => {
-        setOpenDelete(newOpen);
-    };
 
     const handleEditTour = async () => {
         try {
@@ -306,17 +282,7 @@ const Tours = () => {
                     <div>
                         <a onClick={() => toggleEditModal()}><AiFillEdit /></a>
 
-                        {(selectedRecord?.id == record?.id) ? (
-                            <Popover
-                                content={<div><p>Do you want to delete? </p><a onClick={() => handleDelete(record.id)}>Delete</a></div>}
-                                title="Confirm"
-                                trigger="click"
-                                open={openDelete}
-                                onOpenChange={handleOpenChange}
-                            >
-                                <a><AiFillDelete /></a>
-                            </Popover>
-                        ) : (<><a><AiFillDelete /></a></>)}
+                
 
                     </div>
                 );

@@ -1,8 +1,8 @@
 import "./historyBooking.css";
 import React, { useContext, useEffect, useState } from 'react';
-import { Input, Table, Checkbox, Modal, Form, Select } from 'antd';
+import { Input, Table, Checkbox, Modal, Form, Select, Popover } from 'antd';
 import { AuthContext } from "../../context/AuthContext";
-import { AiFillEdit, AiFillDelete, AiFillPlusCircle } from "react-icons/ai";
+import { GiCancel } from "react-icons/gi";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 import { BASE_URL } from "../../utils/config";
@@ -24,10 +24,32 @@ const HistoryBooking = () => {
 
     });
 
+    const [open, setOpen] = useState(false);
+    const hide = () => {
+      setOpen(false);
+    };
+    const handleOpenChange = (newOpen) => {
+      setOpen(newOpen);
+    };
+
+    const [formDataEdit, setFormDataEdit] = useState({
+    
+        accountId: 0,
+        bookingId: 0,
+        guestSize: 0,
+        note: "",
+        price:0,
+        status: "",
+        tourId: 0
+    
+})
+
+
     const columns = [
         {
             title: 'Tour Image',
-            dataIndex: ['tour', 'image']
+            dataIndex: ['tour', 'image'],
+            render: (image) => <img src={image}/>,
         },
         {
             title: 'Tour Name',
@@ -48,6 +70,11 @@ const HistoryBooking = () => {
         {
             title: 'Price',
             dataIndex: 'price',
+            sorter: (a, b) => a.price - b.price,
+            render: (price) => {
+                const formattedPrice = new Intl.NumberFormat("vi-VN").format(price);
+                return formattedPrice;
+            },
         },
         {
             title: 'Booking Date',
@@ -69,7 +96,28 @@ const HistoryBooking = () => {
             render: (record) => {
                 return (
                     <div>
-                        <AiFillEdit />
+                        {(record?.status == "CONFIRM") ? (
+                        <a>
+                            <Popover
+                                content={<div><p>Do you want to cancel? </p><a onClick={() => handleEditBooking()}>OK</a></div>}
+                                title="Confirm"
+                                trigger="click"
+                                open={open}
+                                onOpenChange={handleOpenChange}
+                            ><GiCancel /></Popover></a>
+                        ) : (<></>)}
+                        {/* {(selectedRecord?.id == record?.id) ? (
+                            <Popover
+                                content={<div><p>Do you want to delete? </p><a onClick={() => handleDelete(record.id)}>Delete</a></div>}
+                                title="Confirm"
+                                trigger="click"
+                                open={openDelete}
+                                onOpenChange={handleOpenChange}
+                            >
+                                <a><AiFillDelete /></a>
+                            </Popover>
+                        ) : (<><a><AiFillDelete /></a></>)} */}
+
                     </div>
                 );
             },
@@ -78,7 +126,17 @@ const HistoryBooking = () => {
 
     useEffect(() => {
         fetchHistory();
-    }, []);
+        setFormDataEdit({
+            accountId: selectedRecord.account.id,
+            bookingId: selectedRecord.id,
+            guestSize: selectedRecord.guestSize,
+            note: selectedRecord.note,
+            price: selectedRecord.price,
+            status: "CANCEL",
+            tourId: selectedRecord.tour.id
+        });
+        // console.log(selectedRecord);
+    }, [selectedRecord]);
     const fetchHistory = async () => {
         setLoading(true);
         try {
@@ -87,11 +145,34 @@ const HistoryBooking = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            fetchHistory(response.data);
+            setHistory(response.data);
             setLoading(false);
         } catch (error) {
             setError(error.message);
             setLoading(false);
+        }
+    }
+    
+
+    const handleEditBooking = async () => {
+        const bookingId = selectedRecord.id;
+
+        try {
+            const response = await axios.put(
+                `${BASE_URL}/bookings/update/${bookingId}`,
+                formDataEdit,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setOpen(false);
+            fetchHistory();
+
+        } catch (error) {
+            setError(error.message);
         }
     }
 
@@ -110,26 +191,6 @@ const HistoryBooking = () => {
                     >
                 </Table>
             </div>
-
-            {/* <Modal
-                title="UPDATE BOOKING"
-                centered
-                open={editModalOpen}
-                onOk={handleEditBooking}
-                onCancel={() => setEditModalOpen(false)}
-            >
-        
-                <Form name="trigger" layout="vertical" autoComplete="off">
-    
-                    <Form.Item label="Status">
-                        <Select name="status" value={formDataEdit.status} onSelect={handleEditSelectStatus}>
-                            <Select.Option value="CONFIRM">Confirm</Select.Option>
-                            <Select.Option value="CANCEL">Cancel</Select.Option>
-                        </Select>
-                    </Form.Item>
-                </Form>
-                   
-            </Modal>  */}
         </section>
     )
     

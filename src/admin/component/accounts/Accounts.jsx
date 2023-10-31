@@ -4,7 +4,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import axios from "axios";
 import { BASE_URL } from "../../../utils/config";
 import { Input, Table, Pagination, Checkbox, Modal, Form, Select, Popover, Tag } from 'antd';
-import { AiFillEdit, AiFillDelete, AiFillPlusCircle } from "react-icons/ai";
+import { AiFillEdit, AiFillPlusCircle } from "react-icons/ai";
 
 
 
@@ -13,17 +13,17 @@ import { AiFillEdit, AiFillDelete, AiFillPlusCircle } from "react-icons/ai";
 const { Search } = Input;
 
 
-const onSearch = (value, _e, info) => console.log(info?.source, value);
 const Accounts = () => {
     const { token } = useContext(AuthContext);
     const [addModalOpen, setAddModalOpen] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [accounts, setAccounts] = useState([]);
+    const [current, setCurrent] = useState(1);
     const [totalAccounts, setTotalAccounts] = useState(0);
     const [selectedRecord, setSelectedRecord] = useState({});
     const [error, setError] = useState(null);
+    const [searchUsername, setSearchUsername] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [openDelete, setOpenDelete] = useState(false);
     const [formDataAdd, setFormDataAdd] = useState({
         username: "",
         fullName: "",
@@ -39,7 +39,9 @@ const Accounts = () => {
         phone: "",
         address: "",
         status: ""
-    })
+    });
+    const onSearch = (value) => setSearchUsername(value);
+
 
     const columns = [
         {
@@ -91,17 +93,7 @@ const Accounts = () => {
                     <div>
                         <a onClick={() => toggleEditModal()}><AiFillEdit /></a>
 
-                        {(selectedRecord?.id == record?.id) ? (
-                            <Popover
-                                content={<div><p>Do you want to delete? </p><a onClick={() => handleDelete(record.id)}>Delete</a></div>}
-                                title="Confirm"
-                                trigger="click"
-                                open={openDelete}
-                                onOpenChange={handleOpenChange}
-                            >
-                                <a><AiFillDelete /></a>
-                            </Popover>
-                        ) : (<><a><AiFillDelete /></a></>)}
+                       
 
                     </div>
                 );
@@ -109,27 +101,36 @@ const Accounts = () => {
         },
     ];
 
-    const handleOpenChange = (newOpen) => {
-        setOpenDelete(newOpen);
-    };
 
     useEffect(() => {
         fetchAccounts();
         setFormDataEdit(selectedRecord);
-    }, [selectedRecord]);
+    }, [selectedRecord, current, searchUsername]);
 
     const fetchAccounts = async () => {
         setLoading(true);
+        const requestData = {
+            page: current,
+            size: 10,
+            sortField: "id",
+            sortType: "asc",
+            username: searchUsername
+        };
         try {
-            const response = await axios.get(`${BASE_URL}/api/accounts/get-all`, {
+            const response = await axios.post(`${BASE_URL}/api/accounts/search`,
+            requestData,
+            {
                 headers: {
+                    accept: "*/*",
                     Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
                 },
             });
-            setAccounts(response.data);
-            setTotalAccounts(response.data.length);
+            setAccounts(response.data.content);
+            setTotalAccounts(response.data.totalElements);
             setLoading(false);
         } catch (error) {
+            alert("Không thể xóa account");
             setError(error.message);
             setLoading(false);
         }
@@ -185,27 +186,6 @@ const Accounts = () => {
         }
     }
 
-    const handleDelete = async (id) => {
-        setOpenDelete(true);
-        try {
-            await axios.delete(
-                `${BASE_URL}/api/accounts/${id}`,
-                {
-                    headers: {
-                        accept: "*/*",
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-
-            );
-            setOpenDelete(false);
-            fetchAccounts();
-        } catch (error) {
-            setError(error.message);
-        }
-    };
-
     const handleEditAccount = async () => {
         const id = selectedRecord.id;
 
@@ -229,6 +209,11 @@ const Accounts = () => {
             setError(error.message);
         }
     }
+
+    
+    const onChangePage = (page) => {
+        setCurrent(page);
+    };
 
     return (
         <section className="main container section">
@@ -256,10 +241,7 @@ const Accounts = () => {
                 </Table>
             </div>
 
-            <Pagination defaultCurrent={1} total={totalAccounts} />
-
-
-
+            <Pagination current={current} total={totalAccounts} onChange={onChangePage} />
 
             <Modal
                 title="ADD ACCOUNT"
