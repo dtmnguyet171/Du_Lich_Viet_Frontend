@@ -1,8 +1,8 @@
 import "./tours.css";
 import React, { useContext, useEffect, useState } from 'react';
 import axios from "axios";
-import { Checkbox, Input, Pagination, Table, Tooltip, Modal, Select, Form, InputNumber, Upload, Button, message, Popover, Tag } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Input, Pagination, Table, Tooltip, Modal, Select, Form, InputNumber, Upload, Button, message, Popover, Tag } from 'antd';
+import { PlusOutlined, LoadingOutlined } from '@ant-design/icons';
 import { BASE_URL } from "./../../../utils/config";
 import Compressor from "compressorjs";
 import useFetch from "../../../hooks/useFetch";
@@ -31,7 +31,7 @@ const Tours = () => {
         image: "",
         maxGuestSize: 0,
         price: 0,
-        status: "",
+        status: "AVAILABLE",
         title: "",
         transport: "",
         type: ""
@@ -52,7 +52,18 @@ const Tours = () => {
             transport: "",
             type: ""
         }
-    );
+    );const uploadButton = (
+        <div>
+          {loading ? <LoadingOutlined /> : <PlusOutlined />}
+          <div
+            style={{
+              marginTop: 8,
+            }}
+          >
+            Upload
+          </div>
+        </div>
+      );
 
     useEffect(() => {
         fetchTours();
@@ -114,13 +125,13 @@ const Tours = () => {
                 content: "",
                 depart: "",
                 duration: 0,
-                image: "",
+                image: null,
                 maxGuestSize: 0,
                 price: 0,
-                status: "",
+                status: "AVAILABLE",
                 title: "",
-                transport: "",
-                type: ""
+                transport: "AIRPLANE",
+                type: "HOLIDAY"
             })
             fetchTours();
 
@@ -466,6 +477,7 @@ const Tours = () => {
                                     }
                                 })
                             }}
+                            listType="picture-card"
                             maxCount={1}
                             showUploadList={false}
                             customRequest={(info) => {
@@ -494,8 +506,17 @@ const Tours = () => {
                                       });
                             }}
                         >
-                            <Button>Upload</Button>
-                            {fileList.name}
+                            {formDataAdd.image ? (
+          <img
+            src={formDataAdd.image}
+            alt="avatar"
+            style={{
+              width: '100%',
+            }}
+          />
+        ) : (
+          uploadButton
+        )}
                         </Upload>
                     </Form.Item>
                 </Form>
@@ -615,8 +636,17 @@ const Tours = () => {
                                     // setFormDataEdit((prevData) => ({ ...prevData, image: URL.createObjectURL(info.file) }))
                                 }}
                             >
-                                <Button>Upload</Button>
-                                {formDataEdit.image}
+                                {formDataEdit.image ? (
+          <img
+            src={formDataEdit.image}
+            alt="avatar"
+            style={{
+              width: '100%',
+            }}
+          />
+        ) : (
+          uploadButton
+        )}
                             </Upload>
                         </Form.Item>
                     </Form>

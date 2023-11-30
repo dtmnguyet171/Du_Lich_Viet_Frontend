@@ -109,7 +109,7 @@ const Details = () => {
                         GIỚI THIỆU TỔNG QUAN
                     </div>
                     <hr data-aos="fade-up" />
-                    <div data-aos="fade-up">{content}</div>
+                    <div data-aos="fade-up" style={{textAlign: "justify", marginBottom: "20px"}}>{content}</div>
                 </div>
 
                 <div></div>

@@ -42,7 +42,7 @@ const Profile = () => {
     <section className='profile'>
       <div className='avatar'>
       <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}
-    size={{ xs: 48, sm: 64, md: 80, lg: 128, xl: 160, xxl: 200 }}>N</Avatar>
+    size={{ xs: 48, sm: 64, md: 80, lg: 128, xl: 160, xxl: 200 }}>{account?.username.charAt(0).toUpperCase()}</Avatar>
     </div>
     <h3 className='fullName'>{account?.fullName}</h3>
     <div className='username'>{account?.username}</div>

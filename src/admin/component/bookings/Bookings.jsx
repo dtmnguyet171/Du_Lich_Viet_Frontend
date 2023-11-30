@@ -132,7 +132,7 @@ const Bookings = () => {
         }
 
         try {
-            const response = await axios.post(`${BASE_URL}/bookings/filter?page=${current}&size=10&sort=id%2Casc`,
+            const response = await axios.post(`${BASE_URL}/bookings/filter?page=${current}&size=10&sort=id%2Cdesc`,
             requestData,
             {
                 headers: {
